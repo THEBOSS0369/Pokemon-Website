@@ -1,0 +1,431 @@
+{% extends "network/layout.html" %}
+
+{% load static %}
+
+{% block extra_css %}
+    <style>
+        @font-face {
+            font-family: 'Flexo-Regular';
+            src: url('Flexo-Regular.ttf') format("truetype");
+        }
+
+        body {
+            position: relative; /* Ensure the body is relatively positioned */
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url(https://assets.pokemon.com/static2/_ui/img/gus/promo-bg.png);
+            background-size: 600px; /* Adjust as needed */
+            background-position: center;
+            filter: brightness(1.13); /* Adjust the brightness value as needed */
+            z-index: -1; /* Ensure the pseudo-element is behind other content */
+        }
+        /* Additional CSS styles specific to this template */
+        .card-img-top {
+            background-color: #E5E4E2;
+        }
+
+                /* Create three unequal columns that floats next to each other */
+        .column {
+        float: left;
+        }
+
+        /* Left and right column */
+        .column.side {
+        opacity: 73%;
+        background-color: black;
+        width: 10%;
+        }
+
+        /* Middle column */
+        .column.middle {
+        width: 80%;
+        margin-top: -10px;
+        display: flex;
+        flex-wrap: wrap;
+        }
+        /* Clear floats after the columns */
+        .row::after {
+        content: "";
+        display: table;
+        clear: both;
+        }
+
+        .subtitle {
+            color: white;
+            margin-top: 20px;
+            font-family: 'Flexo-Regular' sans-serif;
+        }
+
+        .banner-title {
+            color: white;
+            font-size: 22px;
+            text-align: center;
+            margin-top: 13px; 
+        }
+
+        .dropbtn {
+            background-color: #1B1212;
+            color: white;
+            text-align: center;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            height: 50px;
+            width: 350px;
+        }
+
+        .dropbtn:hover, .dropbtn:focus {
+            background-color: #343434;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            margin-left: 800px;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #1B1212;
+            min-width: 160px;
+            overflow: auto;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown a:hover {background-color: #343434;}
+
+        .show {display: block;}
+
+       .category-fire {
+        background-color: #FF4500; /* Fire category */
+    }
+
+    .category-water {
+        background-color: #4169E1; /* Water category */
+    }
+
+    .category-grass {
+        background-color: #32CD32; /* Grass category */
+    }
+
+    .category-flying {
+        background-color: #87CEEB; /* Flying category */
+    } 
+        
+    #loadMore {
+  width: 200px;
+  color: #fff;
+  display: block;
+  text-align: center;
+  margin: 20px auto;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  background-color: blue;
+  transition: .3s;
+}
+#loadMore:hover {
+  color: blue;
+  background-color: #fff;
+  border: 1px solid blue;
+  text-decoration: none;
+}
+.noContent {
+  color: #000 !important;
+  background-color: transparent !important;
+  pointer-events: none;
+}
+
+#loadMore {
+    width: 200px;
+    color: #fff;
+    display: block;
+    text-align: center;
+    margin: 20px auto;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    background-color: blue;
+    transition: .3s;
+}
+#loadMore:hover {
+    color: blue;
+    background-color: #fff;
+    border: 1px solid blue;
+    text-decoration: none;
+}
+.noContent {
+    color: #000 !important;
+    background-color: transparent !important;
+    pointer-events: none;
+}
+
+
+#scrollToTopBtn {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    z-index: 99;
+    font-size: 14px; /* Adjust font size */
+    border: none;
+    outline: none;
+    background-color: #333;
+    color: white;
+    cursor: pointer;
+    padding: 12px; /* Adjust padding */
+    border-radius: 50%; /* Make it circular */
+    width: 40px; /* Adjust width */
+    height: 40px; /* Adjust height */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+#scrollToTopBtn:hover {
+    background-color: #111;
+}
+
+/* Icon inside the button */
+#scrollToTopBtn i {
+    vertical-align: middle;
+}
+
+    </style>
+{% endblock %}
+
+{% block body %}
+    {% block extra_js %}
+    <script>
+        function searchListings() {
+            var searchText = document.getElementById('searchInput').value.toLowerCase();
+            var listings = document.querySelectorAll('.card');
+
+            listings.forEach(function(listing) {
+                var title = listing.querySelector('.card-title').textContent.toLowerCase();
+                var price = listing.querySelector('.card-price').textContent.toLowerCase();
+                if (title.includes(searchText) || price.includes(searchText)) {
+                    listing.style.display = 'block';
+                } else {
+                    listing.style.display = 'none';
+                }
+            });
+        }
+
+        /* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+
+function postData(category) {
+  var form = document.createElement('form');
+  form.method = 'POST';
+  form.action = "{% url 'display' %}";
+
+  var csrfToken = document.getElementsByName("csrfmiddlewaretoken")[0].value;
+
+  var hiddenField = document.createElement('input');
+  hiddenField.type = 'hidden';
+  hiddenField.name = 'category';
+  hiddenField.value = category;
+  form.appendChild(hiddenField);
+
+  var csrfField = document.createElement('input');
+  csrfField.type = 'hidden';
+  csrfField.name = 'csrfmiddlewaretoken';
+  csrfField.value = csrfToken;
+  form.appendChild(csrfField);
+
+  document.body.appendChild(form);
+  form.submit();
+}
+
+    // Random Listing Generator function
+    function getRandomListing() {
+        // Get all the listings
+        var listings = document.querySelectorAll('.card');
+        
+        // Choose a random index
+        var randomIndex = Math.floor(Math.random() * listings.length);
+        
+        // Get the random listing
+        var randomListing = listings[randomIndex];
+        
+        // Scroll to the random listing
+        randomListing.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const listingCards = document.querySelectorAll(".listing-card");
+        listingCards.forEach(card => {
+            card.addEventListener("click", function() {
+                const listingId = this.dataset.id;
+                // Now you can fetch the details of the listing using JavaScript or make an AJAX request
+                // Example: window.location.href = `/listing/${listingId}`; // Redirect to the listing detail page
+            });
+        });
+    });
+
+    $(document).ready(function(){
+    $(".content").slice(0, 4).show();
+    $("#loadMore").on("click", function(e){
+        e.preventDefault();
+        $(".content:hidden").slice(0, 4).slideDown();
+        if($(".content:hidden").length == 0) {
+        $("#loadMore").text("No Content").addClass("noContent");
+        }
+    });
+    
+    })
+
+var currentOffset = 10; // Initialize with the number of listings already displayed
+
+    function loadMoreListings() {
+        fetch(`/load_more_listings?offset=${currentOffset}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.listings.length > 0) {
+                    const container = document.getElementById('card mx-3 listing-card');
+                    data.listings.forEach(listing => {
+                        const card = document.createElement('div');
+                        card.className = 'card mx-3 listing-card';
+                        card.style = 'margin-left: 90px; background-color: #FAF9F6; padding: 10px; width: 18rem; margin-top: 30px;';
+                        card.dataset.id = listing.id;
+                        card.innerHTML = `
+                            <img class="card-img-top" src="${listing.url}" alt="${listing.title}">
+                            <div class="card-body">
+                                <h5 class="card-price" style="color: #616161;">#${listing.price}</h5>
+                                <h5 class="card-title" style="color: black;">${listing.title}</h5>
+                                <p class="card-category" style="color: black;">Type: ${listing.category}</p>
+                                <a href="/listing/${listing.id}" class="btn btn-dark" style="margin-left: 50px;">${listing.title}</a>
+                            </div>`;
+                        container.appendChild(card);
+                    });
+                    currentOffset += 10; // Update offset
+                } else {
+                    document.getElementById('loadMore').textContent = 'No More Listings';
+                    document.getElementById('loadMore').classList.add('noContent');
+                }
+            })
+            .catch(error => console.error('Error loading more listings:', error));
+    }
+
+    // Get the button
+    var scrollToTopBtn = document.getElementById("scrollToTopBtn");
+
+    // When the user scrolls down 20px from the top of the document, show the button
+    window.onscroll = function() {scrollFunction()};
+
+    function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            scrollToTopBtn.style.display = "block";
+        } else {
+            scrollToTopBtn.style.display = "none";
+        }
+    }
+
+    // Smooth scroll to top function
+    function scrollToTop() {
+        var currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
+        if (currentScroll > 0) {
+            window.requestAnimationFrame(scrollToTop);
+            window.scrollTo(0, currentScroll - (currentScroll / 10));
+        }
+    }
+
+    </script>
+{% endblock %}
+
+    <nav class="navbar navbar-dark bg-dark ">
+        <a class="navbar-brand"></a>
+    </nav>
+
+    <div class="row">
+        <div class="column side"></div>
+
+        <div class="column middle">
+
+            <div class="card-body" style="width: 70rem; background-color: white;">
+                <div class="card-title" style="background-color: #FAF9F6; height: 70px; margin-top: -10px; margin-bottom: -20px; margin-left: 200px; width: 960px; display: flex;  align-items: center;">
+                    <h2 style=" color: #919191; font-weight: normal; font-family: sans-serif;">Pokédex</h2>
+                </div>
+            </div>
+            <div class="card-body" style="width: 70rem; height: 230px; background-color: #313131;">
+                <div class="pokedex-header" style="margin-left: 200px;">
+                    <label style="color: white; font-size: 30px; margin-bottom: -5px;">Name or Number</label>
+                    <form class="form-inline" onsubmit="return false;">
+                        <input class="form-control-lg mr-sm-2" type="search" id="searchInput" style="width: 330px" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success btn-lg  mr-sm-2" type="submit" onclick="searchListings()">Search</button>
+                        <div class="search-header" style="background-color: #4dad5b; width: 450px; height: 100px; margin-top: -20px; margin-left: 70px;">
+                            <p class="banner-title">Search for a Pokémon by name or using its National Pokédex number.</p>
+                        </div>
+                    </form>
+                    <p class="subtitle" style="max-width: 40%; font-family:  Helvetica; font-size: 18px; margin-top: -5px;">Use the Advanced Search to explore Pokémon by type, weakness, Ability, and more!</p>
+                </div>
+            </div>
+            <div class="card-body" style="width: 70rem; height: 130px; background-color: white;">
+                <form action="{% url 'display' %}" method="POST" class="my-3">
+                    {% csrf_token %}
+                </form>
+                <button onclick="getRandomListing()" style="margin-left: 30px;" class="btn btn-primary">Surprise Me!!!</button>
+                <div class="dropdown">
+                    <h style="color: #919191; margin-left: -80px; font-size: 25px; padding-right: 10px;">Sort By</h>
+                    <button onclick="myFunction()" class="dropbtn" style=" text-align: center;">Categories</button>
+                    <div id="myDropdown" class="dropdown-content">
+                      {% for cat in categories %}
+                        <a href="#" onclick="postData('{{ cat }}')">{{ cat }}</a>
+                      {% endfor %}
+                    </div>
+                  </div>
+            </div>
+            <div id="listings-container">
+
+            </div>
+            {% for Listing in listings %}
+            <div class="card mx-3 listing-card" data-id="{{ Listing.id }}" style="margin-left: 90px; border-radius: 8px; background-color: #FAF9F6; padding: 10px; width: 18rem; margin-top: 30px;">
+                <img class="card-img-top" src="{{ Listing.url }}" alt="{{ Listing.title }}">
+                <div class="card-body">
+                    <h5 class="card-price" style="color: #616161;">#{{ Listing.price }}</h5>
+                    <h5 class="card-title" style="color: black;">{{ Listing.title }}</h5>
+                    <p class="card-category" style="color: black;">Type: {{ Listing.category }}</p>
+                    <a href="{% url 'listing' id=Listing.id %}" class="btn btn-dark" style="margin-left: 50px;">{{ Listing.title }}</a>
+            </div>
+        </div>        
+            {% endfor %}
+        </div>
+
+        <div class="column side"></div>
+        <button onclick="scrollToTop()" id="scrollToTopBtn" title="Go to top"><i class="fa fa-arrow-up"></i></button>
+   </div>
+
+{% endblock %}

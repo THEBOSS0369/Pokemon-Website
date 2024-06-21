@@ -1,0 +1,170 @@
+{% extends "network/layout.html" %}
+
+{% load static %}
+
+{% block extra_css %}
+    <style>
+        body {
+            position: relative; /* Ensure the body is relatively positioned */
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url(https://assets.pokemon.com/static2/_ui/img/gus/promo-bg.png);
+            background-size: 600px; /* Adjust as needed */
+            background-position: center;
+            filter: brightness(1.13); /* Adjust the brightness value as needed */
+            z-index: -1; /* Ensure the pseudo-element is behind other content */
+        }
+        /* Additional CSS styles specific to this template */
+        .card-img-top {
+            background-color: #E5E4E2;
+        }
+
+                /* Create three unequal columns that floats next to each other */
+        .column {
+        float: left;
+        }
+
+        /* Left and right column */
+        .column.side {
+        opacity: 73%;
+        background-color: black;
+        width: 10%;
+        height: 950px;
+        }
+
+        /* Middle column */
+        .column.middle {
+        width: 80%;
+        margin-top: -10px;
+        display: flex;
+        flex-wrap: wrap;
+        }
+    
+        .grid-container {
+            margin-top: 20px;
+            display: grid;
+            margin-left: -20px;
+            margin-right: -20px;
+            grid-template-columns: auto auto auto;
+            gap: 15px;
+            padding: 10px;
+        }
+
+        .grid-container > div {
+            background-color: greenyellow; 
+            border-radius: 10px;
+            text-align: center;
+            padding: 20px 0;
+            font-size: 30px;
+        }
+
+        .card-body {
+            border-radius: 5px;
+        }
+
+        .item1 {
+            height: 470px;
+            grid-column-start: 1;
+            grid-column-end: 3;
+            grid-row-start: 1;
+            grid-row-end: 3;
+        }
+
+        .item2 {
+            height: 300px;
+        }
+
+        .item3 {
+            height: 300px;
+        }
+
+        .item4 {
+            margin-top: -145px;
+            height: 293px;
+        }
+
+        .item5 {
+            margin-top: -145px;
+            height: 293px;
+        }
+
+        .item6 {
+            height: 150px;
+        }
+    </style>
+{% endblock %}
+
+{% block extra_js %}
+        <script>
+            document.getElementById("Episode").addEventListener("click", function() {
+                window.location.href = "https://www.pokemon.com/us/pokemon-news/pokemon-horizons-the-series-part-2-available-on-netflix";
+            });
+        </script>
+{% endblock %}
+
+{% block body %}
+        <script>
+            document.getElementById("Episode").addEventListener("click", function() {
+                window.location.href = "https://www.pokemon.com/us/pokemon-news/pokemon-horizons-the-series-part-2-available-on-netflix";
+            });
+        </script>
+    <div class="row">
+        <div class="column side"></div>
+
+        <div class="column midde">
+            <div class="card-body" style="width: 1000px; height: 940px; background-color: white; margin-left: 170px; margin-right: 200px;">
+                <div class="card-body" style="width: 960px; background-color: white;">
+                    <h2 style="margin-top: 10px; margin-left: -20px; font-weight: normal; color: #919191;">Animation</h2>
+                </div>
+                <div class="grid-container">
+                    <div class="item1" id="Episode" style="background-color: #313131;">
+                        <div class="card-body" style="height: 320px; background-color: black; margin-top: -20px; padding: 0; overflow: hidden;">
+                            <img src="https://www.pokemon.com/static-assets/content-assets/cms2/img/watch-pokemon-tv/_tiles/horizons/01/netflix/02/horizons-169-us.png" style="width: 100%; height: 100%;">
+                        </div>
+                        <a href="https://www.pokemon.com/us/pokemon-news/pokemon-horizons-the-series-part-2-available-on-netflix"><h3 style="color: white; font-weight: normal; margin-top: 25px; text-align: left; margin-left: 25px;">New <em>horizons</em>, New Adventures on Netflix</h3></a>
+                        <p style="font-size: 18px; color: #ccc; margin-left: 10px; display: block;">Liko, Sprigatito, Roy, and Fuecoco’s journey across the Pokémon world continues with Part 2 on May 10.</p>
+                    </div>
+                    <div class="item2" style="background-color: #ff90c4;">
+                        <div class="card-body" style="height: 158px; background-color: black; margin-top: -20px; padding: 0; overflow: hidden;">
+                            <img src="https://www.pokemon.com/static-assets/content-assets/cms2/img/watch-pokemon-tv/_tiles/horizons/launch/horizons-169-us.png" style="height: 100%; width: 100%;">
+                        </div>
+                        <a href="https://horizons.pokemon.com/en-us/"><h3 style="max-width: 300px; font-weight: normal; color: white; margin-top: 15px;">A New Pokémon Animated Adventure Begins</h3></a>
+                    </div>
+                    <div class="item3" style="background-color: #FF514F;">
+                        <div class="card-body" style="height: 158px; background-color: black; margin-top: -20px; padding: 0; overflow: hidden;">
+                            <img src="https://www.pokemon.com/static-assets/content-assets/cms2/img/watch-pokemon-tv/_tiles/where-to-watch/where-to-watch-169.png" style="width: 100%; height: 100%;">
+                        </div>
+                        <a href="https://www.pokemon.com/us/animation/where-to-watch-pokemon-episodes-movies"><h3 style="max-width: 300px; font-weight: normal; color: white; margin-top: 25px; margin-bottom: 30px;">Discover Where to Watch Pokémon!</h3></a>
+                    </div>  
+                    <div class="item4" style="background-color: #855ac9;">
+                        <div class="card-body" style="height: 158px; background-color: black; margin-top: -20px; padding: 0; overflow: hidden;">
+                            <img src="https://www.pokemon.com/static-assets/content-assets/cms2/img/watch-pokemon-tv/_tiles/horizons/01/quiz/01/horizons-169-en.png" style="height: 100%; width: 100%;">
+                        </div>
+                        <a href="https://www.pokemon.com/us/pokemon-news/pokemon-horizons-the-series-part-1-recap-quizzes"><h3 style=" font-weight: normal; color: white; margin-top: 15px;">Put Yourself to the <em>Pokémon Horizons</em> Test</h3></a>
+                    </div>
+                    <div class="item5" style="background-color: #4dad5b;">
+                        <div class="card-body" style="height: 158px; background-color: black; margin-top: -20px; padding: 0; overflow: hidden;">
+                            <img src="https://www.pokemon.com/static-assets/content-assets/cms2/img/watch-pokemon-tv/_tiles/all-seasons/season-encylopedia-169.jpg" style="height: 100%; width: 100%;">
+                        </div>
+                        <a href="https://www.pokemon.com/us/animation/seasons"><h3 style="max-width: 300px; font-weight: normal; color: white; margin-top: 15px;"><em>Pokémon the Series</em> Episode Encyclopedia</h3></a>
+                    </div>
+                    <div class="item6" style="background-color: #30a7d7;">
+                        <div class="card-body" style="height: 168px; width: 148px; background-color: black; margin-top: -20px; margin-bottom: -30px; height: 150px; padding: 0; overflow: hidden;">
+                            <img src="https://www.pokemon.com/static-assets/content-assets/cms2/img/watch-pokemon-tv/_tiles/movie21/trailer/movie-21-34-en.jpg" style="width: 100%; height: 100%;">
+                        </div>
+                        <a href="https://www.pokemon.com/us/animation/movies"><h3 style="margin-right: 20px; margin-left: 120px; text-align: right; max-width: 200px; font-weight: normal; color: white; margin-top: -130px;">Pokémon Movie Encyclopedia</h3></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="column side"></div>
+    </div>
+{% endblock %}

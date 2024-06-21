@@ -1,0 +1,165 @@
+{% extends "network/layout.html" %}
+
+{% load static %}
+
+{% block extra_css %}
+    <style>
+        body {
+            position: relative; /* Ensure the body is relatively positioned */
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url(https://assets.pokemon.com/static2/_ui/img/gus/promo-bg.png);
+            background-size: 600px; /* Adjust as needed */
+            background-position: center;
+            filter: brightness(1.13); /* Adjust the brightness value as needed */
+            z-index: -1; /* Ensure the pseudo-element is behind other content */
+        }
+        /* Additional CSS styles specific to this template */
+        .card-img-top {
+            background-color: #E5E4E2;
+        }
+
+                /* Create three unequal columns that floats next to each other */
+        .column {
+        float: left;
+        }
+
+        /* Left and right column */
+        .column.side {
+        opacity: 73%;
+        background-color: black;
+        width: 10%;
+        }
+
+        /* Middle column */
+        .column.middle {
+        width: 80%;
+        margin-top: -10px;
+        display: flex;
+        flex-wrap: wrap;
+        }
+        /* Clear floats after the columns */
+        .row::after {
+        content: "";
+        display: table;
+        clear: both;
+        }
+
+        /* Styling for previous and next buttons */
+        .prev-next-buttons {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .prev-next-buttons button {
+            margin: 0 10px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .prev-next-buttons button:hover {
+            background-color: #0056b3;
+        }
+
+        .butn {
+            display: inline-block;
+            padding: 9px 18px;
+            font-size: 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+{% endblock %}
+
+
+{% block body %}
+    {% block extra_js %}
+        <script>
+            var totalListings = 5; // Total number of listings
+            var currentIndex = 0; // Initialize current index
+
+            // Function to handle displaying listing at current index
+            function displayListing(index) {
+                // You can implement logic to fetch and display listing content here
+            }
+
+            // Event listener for the previous button
+            document.getElementById("prev-button").addEventListener("click", function() {
+                currentIndex = (currentIndex - 1 + totalListings) % totalListings;
+                displayListing(currentIndex);
+            });
+
+            // Event listener for the next button
+            document.getElementById("next-button").addEventListener("click", function() {
+                currentIndex = (currentIndex + 1) % totalListings;
+                displayListing(currentIndex);
+            });
+        </script>
+    {% endblock %}
+
+    <div class="row">
+        <div class="column side"></div>
+
+        <div class="column midde">
+            <div class="card-body" style="width: 1365px; height: 10px; background-color: gray; opacity: 70%;">
+            </div>
+
+            <div class="card-body" style="width: 1000px; height: 1200px; border-radius: 5px; background-color: white; margin-left: 170px;">
+                
+                <h2 style="color: black; font-size: 50px; text-align: center;">{{ listing.title }} <span style="margin-left: 20px; color: #616161;">#{{ listing.price }}</span></h2>
+                <div class="card-body" style="border-radius: 10px; margin-top: 60px; background-color: #F2F2F2; display: inline-flex; width: 500px; margin-left: 240px;">
+                    <img src="{{ listing.url }}" alt="{{ listing.title }}">
+                </div>
+                <div class="card-title">
+                    <h3 class="card-category" style="font-weight: bold; display: block; text-align: center; margin-top: 20px;">Type: {{ listing.category }}</h3>
+                </div>
+                <div class="card-body" style="display: inline-flex; color: black;">
+                    <p style="font-size: 20px; display: block;">{{ listing.description }}</p>
+                </div>
+
+                <div class="comment-section" style="background-color: #F2F2F2; border-radius: 5px;">
+                    <div class="rom mx-3">
+                        <h2>COMMENTS</h2>
+                        {% if user.is_authenticated %}
+                            <form style="margin-top: 20px;" action="{% url  'addcomment' id=listing.id %}" method="POST">
+                                {% csrf_token %}
+                                <input type="text" name="newComment" style=" background-color: #313131; width: 700px; margin-right: 30px; margin-left: 7px; height: 50px; color: white; border-radius: 5px;" placeholder="Add Comment">
+                                <button type="submit" class="butn">Add Comment</button>
+                            </form>
+                        {% endif %}
+                    </div>
+
+                    </br>
+                    <ul class="list-group"></ul>
+                        {% for comment in allcomments %}
+                            <li class="list-group-item" style="background-color: #EDEADE;">
+                                <strong>Posted By {{ comment.author }}</strong>
+                            </br>
+                                {{ comment.message }}
+                            </li>          
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                    
+                </div>
+            </div>
+            <div class="column side"></div>
+    </div>
+{% endblock %}

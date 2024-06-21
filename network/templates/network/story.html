@@ -1,0 +1,385 @@
+{% extends "network/layout.html" %}
+
+{% load static %}
+
+{% block extra_css %}
+    <style>
+        body {
+            position: relative; /* Ensure the body is relatively positioned */
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url(https://assets.pokemon.com/static2/_ui/img/gus/promo-bg.png);
+            background-size: 600px; /* Adjust as needed */
+            background-position: center;
+            filter: brightness(1.13); /* Adjust the brightness value as needed */
+            z-index: -1; /* Ensure the pseudo-element is behind other content */
+        }
+        
+.image-slider {
+        margin-top: -550px;
+        margin-left: 200px;
+        width: 500px;
+        height: 500px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .image-slider img {
+        width: 500px; /* Adjust the size as needed */
+        height: auto;
+        position: absolute;
+        transition: transform 0.5s ease;
+    }
+
+    .selected {
+        transform: translateX(50%);
+        z-index: 1;
+    }
+
+    .left-image {
+        transform: translateX(-150%);
+        z-index: 0;
+    }
+
+    .right-image {
+        transform: translateX(150%);
+        z-index: 0;
+    }
+
+    .controls {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .prev, .next {
+        cursor: pointer;
+        padding: 10px;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        border: none;
+        outline: none;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .prev {
+        left: 0;
+    }
+
+    .next {
+        right: 0;
+    }
+
+        /* Additional CSS styles specific to this template */
+        .card-img-top {
+            background-color: #E5E4E2;
+        }
+
+                /* Create three unequal columns that floats next to each other */
+        .column {
+        float: left;
+        }
+
+        /* Left and right column */
+        .column.side {
+        opacity: 73%;
+        background-color: black;
+        width: 10%;
+        height: 4400px;
+        }
+
+        /* Middle column */
+        .column.middle {
+        width: 80%;
+        height: 4900px;
+        margin-top: -10px;
+        display: flex;
+        flex-wrap: wrap;
+        }
+        /* Clear floats after the columns */
+        .row::after {
+        content: "";
+        display: table;
+        clear: both;
+        }
+
+        .grid-container {
+            display: grid;
+            column-gap: 50px;
+            grid-template-columns: auto auto auto;
+            padding: 30px;
+        }
+
+        .grid-item {
+            margin-top: -40px;
+            background-color: #F2F2F2;
+            margin-left: -30px;
+            width: 470px;
+            padding: 10px;
+            font-size: 30px;
+            text-align: center;
+        }
+
+        .button {
+            margin-left: 190px;
+            margin-top: 70px;
+            display: inline-block;
+            padding: 8px 16px;
+            font-size: 24px;
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .butn {
+            display: inline-block;
+            padding: 9px 18px;
+            font-size: 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Style for the scroll-to-top button */
+    #scrollToTopBtn {
+        display: none; /* Initially hidden */
+        position: fixed;
+        bottom: 40px;
+        right: 40px;
+        z-index: 99;
+        font-size: 14px; /* Adjust font size */
+        border: none;
+        outline: none;
+        background-color: #333;
+        color: white;
+        cursor: pointer;
+        padding: 12px; /* Adjust padding */
+        border-radius: 50%; /* Make it circular */
+        width: 40px; /* Adjust width */
+        height: 40px; /* Adjust height */
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease;
+    }
+
+    #scrollToTopBtn:hover {
+        background-color: #111;
+    }
+
+    /* Icon inside the button */
+    #scrollToTopBtn i {
+        vertical-align: middle;
+    }
+
+    </style>
+{% endblock %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="column side"></div>
+
+        <div class="column midde">
+            <div class="card-body" style="width: 1000px; height: 4400px; background-color: white; margin-left: 170px; margin-right: 200px;">
+                
+                <div class="card-body" style="width: 960px; background-color: white;">
+                    <h2 style="font-weight: bold; font-size: 55px; text-align: center; max-width: 600px; margin-top: 20px; margin-left: 130px;  color: var;">Welcome to the World of Pokémon!</h2>
+                </div>
+                <div class="img-main" style="margin-left: 13px; height: 635px; width: 935px; background-color: black; overflow: hidden; padding: 0; border-radius: 20px;">
+                    <img src="https://pokemonletsgo.pokemon.com/assets/img/story/header-illu.jpg" style="width: 100%; height: 100%;">
+                </div>
+                <p style="font-size: 20px; margin-top: 30px; text-align: center;">Pokémon are wondrous (and sometimes mysterious) creatures that inhabit the in-game world. Some Pokémon coexist alongside humans, but other wild Pokémon live in tall grass, caves, seas, and elsewhere.</p>
+                <div class="trainers" style="margin-top: 150px; margin-left: 20px;">
+                    <h1>Trainers</h1>
+                    <p style="font-size: 20px; text-align: center;">In the game, you start out as a brand-new Pokémon Trainer. You’ll meet, catch, and raise many Pokémon on your journey to improve your skills and become the best Pokémon Trainer that you can be. Along the way, you’ll help all sorts of people and thwart the dastardly plans of those who wish to take advantage of Pokémon for their nefarious ends. Of course, you can’t accomplish this alone—you’ll need to work with your partner Pikachu or partner Eevee along with the rest of your Pokémon allies!</p>
+                    <div class="trainer">
+                        <img style="margin-left: 200px; margin-top: 20px;" src="https://pokemonletsgo.pokemon.com/assets/video/watercolor-highlight-orange.jpg">
+                        <img style="margin-top: -600px; margin-left: 200px;" src="https://pokemonletsgo.pokemon.com/assets/img/story/male-character.png">
+                        <img style="margin-top: -700px; margin-left: 200px;" src="https://pokemonletsgo.pokemon.com/assets/img/story/female-character.png">
+                    </div>
+                </div>
+                <div class="partner">
+                    <img style="width: 100%; height: 100%; padding: 0px;" src="https://pokemonletsgo.pokemon.com/assets/img/home/story-bg.jpg">
+                    <h1 style="margin-top: -380px; font-weight: normal; margin-left: 320px; color: white;">Partner Pokemon</h1>
+                    <p style="color: white; font-size: 20px; max-width: 900px; margin-left: 30px; text-align: center; margin-top: 20px;">You'll meet either Pikachu or Eevee when you begin your adventure. Pikachu or Eevee will be your partner throughout your adventure and grow with you. Unlike regular Pokémon, your partner prefers to be out of its Poké Ball, so it will stay with you by hanging on your shoulder or riding on your head. It also seems to have no interest in evolving!</p>
+                    <img style="margin-left: -50px;" src="https://pokemonletsgo.pokemon.com/assets/img/story/partner-pikachu.png">
+                    <img style="margin-top: -540px; margin-left: 430px;" src="https://pokemonletsgo.pokemon.com/assets/img/story/partner-eevee.png">
+                    <h1 style="color: #41444F; margin-top: 10px; margin-left: 140px;">Partner Pikachu</h1>
+                    <h1 style="color: #41444F; margin-top: -55px; margin-left: 600px;">Partner Eevee</h1>
+                    <p style="font-size: 20px; max-width: 480px; margin-top: 20px; text-align: center;">It has red electric sacs on its cheeks, and it raises its tail to check its surroundings. Your partner Pikachu will travel with you by riding on your shoulder. The tip of the tail of a female Pikachu is shaped like a heart.</p>
+                    <p style="font-size: 20px; max-width: 480px; margin-left: 500px; margin-top: -136px; text-align: center;">It has a fluffy mane of fur around its neck. Some people say it can start to look like the Trainer that becomes its partner. Your partner Eevee will ride on your head during your adventure!</p>
+                </div>
+
+                <div class="legendary" style="margin-top: 80px;">
+                    <div style="height: 700px; width: 960px; border-radius: 5px; border: 2px solid goldenrod; " class="card-body">
+                        <div style="height: 650px; display: grid; grid-template-columns: 1fr 1fr;">
+                            <!-- First Grid -->
+                            <div style=" background-color: #9e2a22;">
+                                <!-- Your content for the first grid goes here -->
+                            </div>
+                            <!-- Second Grid -->
+                            <div style=" background-color: #527;">
+                            </div>
+                        </div>
+                        <h1 style="font-weight: bold; color: white; margin-top: -600px; margin-left: 150px;">Discover the Legendary Pokémon</h1>
+                        <img style="margin-left: 200px; margin-top: 40px;" src="https://scarletviolet.pokemon.com/images/elements-icons/pokemon-sv-leaf-circle.svg">
+                    </div>
+ 
+                </div>
+                <div class="image-slider">
+                    <img src="https://www.pokemon.com/static-assets/content-assets/cms2/img/pokedex/full/150.png" >
+                    <img src="https://www.pokemon.com/static-assets/content-assets/cms2/img/pokedex/full/791.png" >
+                    <img src="https://www.pokemon.com/static-assets/content-assets/cms2/img/pokedex/full/493.png">
+                    <img src="https://www.pokemon.com/static-assets/content-assets/cms2/img/pokedex/full/250.png" >
+                    <img src="https://www.pokemon.com/static-assets/content-assets/cms2/img/pokedex/full/249.png">
+                    <button class="prev" onclick="prevSlide()">❮</button>
+                    <button class="next" onclick="nextSlide()">❯</button>
+                </div>
+
+                <div class="pokemon-details" style="margin-top: 100px;">
+                    <div style="height: 560px; width: 960px; border-radius: 5px; border: 1px solid black; " class="card-body">
+                        <div style="height: 400px; display: grid; grid-template-columns: 1fr 1fr;">
+                            <!-- First Grid -->
+                            <div style=" padding: 10px;">
+                                <!-- Your content for the first grid goes here -->
+                                <h2 style="font-weight: bold; margin-left: 120px; margin-bottom: 30px;">Watch Trailer</h2>
+                                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/yBPdzeF0lC4" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                            <!-- Second Grid -->
+                            <div style="padding: 10px;">
+                                <p style="margin-left: 10px; margin-top: 90px; font-size: 30px; text-align: center;">Learn new details about Pikachu and Eevee—the two Pokémon from which you'll choose your first partner—along with other wonderful new Pokémon, including the Legendary Pokémon!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h1 style="font-weight: bold; margin-top: 50px; text-align: center;";">Explore!!!</h1>
+            </div>
+        </div>
+
+        <button onclick="scrollToTop()" id="scrollToTopBtn" title="Go to top"><i class="fa fa-arrow-up"></i></button>
+        <div class="column side"></div>
+    </div>
+
+    <script>
+   let currentSlide = 1; // Index of the initially selected image
+    const slides = document.querySelectorAll('.image-slider img');
+    const totalSlides = slides.length;
+
+    function showSlide(index) {
+        if (index < 0) {
+            currentSlide = totalSlides - 1;
+        } else if (index >= totalSlides) {
+            currentSlide = 0;
+        }
+        slides.forEach((slide, i) => {
+            const offset = i - currentSlide;
+            slide.style.transform = `translateX(${offset * 100}%)`; // Adjust the percentage based on the image width
+        });
+    }
+
+    function nextSlide() {
+        currentSlide++;
+        showSlide(currentSlide);
+    }
+
+    function prevSlide() {
+        currentSlide--;
+        showSlide(currentSlide);
+    }
+
+    showSlide(currentSlide); 
+
+    // Get the button
+    var scrollToTopBtn = document.getElementById("scrollToTopBtn");
+
+    // When the user scrolls down 20px from the top of the document, show the button
+    window.onscroll = function() {scrollFunction()};
+
+    function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            scrollToTopBtn.style.display = "block";
+        } else {
+            scrollToTopBtn.style.display = "none";
+        }
+    }
+
+    // Smooth scroll to top function
+    function scrollToTop() {
+        var currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
+        if (currentScroll > 0) {
+            window.requestAnimationFrame(scrollToTop);
+            window.scrollTo(0, currentScroll - (currentScroll / 10));
+        }
+    }
+
+document.addEventListener('DOMContentLoaded', function() {
+            // Array to store comments
+            let comments = [];
+
+            // Function to display comments
+            function displayComments() {
+                const commentsContainer = document.getElementById('comments');
+                commentsContainer.innerHTML = '';
+                comments.forEach(function(comment, index) {
+                    const commentDiv = document.createElement('div');
+                    commentDiv.className = 'comment';
+                    commentDiv.innerHTML = `
+                        <p><strong>${comment.name}</strong> - ${comment.date} ${comment.time}<br>${comment.text}</p>
+                        <button onclick="editComment(${index})">Edit</button>
+                    `;
+                    commentsContainer.appendChild(commentDiv);
+                });
+            }
+
+            // Function to add a new comment
+            document.getElementById('commentForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                const nameInput = document.getElementById('nameInput');
+                const commentInput = document.getElementById('commentInput');
+                const newName = nameInput.value.trim();
+                const newComment = commentInput.value.trim();
+                if (newName !== '' && newComment !== '') {
+                    const currentDate = new Date();
+                    const dateString = currentDate.toLocaleDateString();
+                    const timeString = currentDate.toLocaleTimeString();
+                    const newEntry = {
+                        name: newName,
+                        text: newComment,
+                        date: dateString,
+                        time: timeString
+                    };
+                    comments.push(newEntry);
+                    displayComments();
+                    nameInput.value = '';
+                    commentInput.value = '';
+                }
+            });
+
+            // Function to edit a comment
+            window.editComment = function(index) {
+                const updatedComment = prompt('Edit your comment:', comments[index].text);
+                if (updatedComment !== null) {
+                    comments[index].text = updatedComment.trim();
+                    displayComments();
+                }
+            };
+        });
+
+</script>
+{% endblock %}

@@ -1,0 +1,149 @@
+{% extends "network/layout.html" %}
+
+{% load static %}
+
+{% block extra_css %}
+    <style>
+        body {
+            position: relative; /* Ensure the body is relatively positioned */
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url(https://assets.pokemon.com/static2/_ui/img/gus/promo-bg.png);
+            background-size: 600px; /* Adjust as needed */
+            background-position: center;
+            filter: brightness(1.13); /* Adjust the brightness value as needed */
+            z-index: -1; /* Ensure the pseudo-element is behind other content */
+        }
+        /* Additional CSS styles specific to this template */
+        .card-img-top {
+            background-color: #E5E4E2;
+        }
+
+                /* Create three unequal columns that floats next to each other */
+        .column {
+        float: left;
+        }
+
+        /* Left and right column */
+        .column.side {
+        opacity: 73%;
+        background-color: black;
+        width: 10%;
+        }
+
+        /* Middle column */
+        .column.middle {
+        width: 80%;
+        margin-top: -10px;
+        display: flex;
+        flex-wrap: wrap;
+        }
+        /* Clear floats after the columns */
+        .row::after {
+        content: "";
+        display: table;
+        clear: both;
+        }
+
+        .grid-container {
+            display: grid;
+            column-gap: 50px;
+            grid-template-columns: auto auto auto;
+            padding: 30px;
+        }
+
+        .grid-item {
+            margin-top: -40px;
+            background-color: #F2F2F2;
+            margin-left: -30px;
+            width: 470px;
+            padding: 10px;
+            font-size: 30px;
+            text-align: center;
+        }
+
+        .button {
+            margin-left: 190px;
+            margin-top: 70px;
+            display: inline-block;
+            padding: 8px 16px;
+            font-size: 24px;
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .butn {
+            display: inline-block;
+            padding: 9px 18px;
+            font-size: 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+    </style>
+{% endblock %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="column side"></div>
+
+        <div class="column midde">
+            <div class="card-body" style="width: 1000px; height: 800px; background-color: white; margin-left: 170px; margin-right: 200px;">
+                
+                <div class="card-body" style="width: 960px; background-color: white;">
+                    <h2 style="margin-top: 20px; margin-left: -20px; font-weight: normal; color: #919191;">Welcome to the Pokémon Trainer Club!</h2>
+                </div>
+                <div class="card-body" style="width: 960px; margin-top: 30px; background-color: white;">
+                    <h3 style="font-weight: normal; color: #919191;">Log In <span style="margin-left: 390px; font-weight: normal;">Join the Pokémon Trainer Club!</span></h3>
+                </div>
+                <div class="grid-container">
+                    <div class="grid-item">
+                        <form action="{% url 'login' %}" method="post">
+                            {% csrf_token %}
+                            <div class="form-group" style="display: flex; margin-top: 20px;">
+                                <p style="display: inline-block; margin-left: 20px; margin-right: 40px; margin-top: 10px; font-size: 20px;">Username</p>
+                                <input autofocus class="form-control" type="text" name="username" style="background-color: #313131; width: 280px; height: 50px; color: white;">
+                            </div>
+                            <div class="form-group" style="display: flex; margin-top: 20px;">
+                                <p style="display: inline-block; margin-left: 20px; margin-right: 40px; margin-top: 10px; font-size: 20px;">Password</p>
+                                <input class="form-control" type="password" name="password" style="background-color: #313131; width: 280px; margin-left: 7px; height: 50px; color: white;">
+                            </div>
+                            <input class="butn" type="submit" style="margin-left: 320px; margin-top: 30px;" value="Log In">
+                        </form>
+                    </div>
+                    <div class="grid-item" style="margin-left: -30px; height: 400px;">
+                        <p style="font-size: 18px; text-align: justify;">Create a Pokémon Trainer Club account today! With a Pokémon Trainer Club account, you can manage your Pokemon.com profile, play Pokémon Trading Card Game Live, and more.</p>
+                        <a href="{% url 'register' %}" class="button">Create an Account!</a>
+                    </div>
+
+                </div>
+                <div class="character-image" style="margin-left: 360px; margin-top: -180px;">
+                    <img src="https://assets.pokemon.com/static2/_ui/img/account/pokemon-login.png">
+                </div>
+            </div>
+        </div>
+
+        <div class="column side"></div>
+    </div>
+    {% if message %}
+        <div>{{ message }}</div>
+    {% endif %}
+{% endblock %}

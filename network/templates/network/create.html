@@ -1,0 +1,180 @@
+{% extends 'network/layout.html' %}
+
+{% load static %}
+
+{% block extra_css %}
+    <style>
+        body {
+            position: relative; /* Ensure the body is relatively positioned */
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url(https://assets.pokemon.com/static2/_ui/img/gus/promo-bg.png);
+            background-size: 600px; /* Adjust as needed */
+            background-position: center;
+            filter: brightness(1.13); /* Adjust the brightness value as needed */
+            z-index: -1; /* Ensure the pseudo-element is behind other content */
+        }
+        /* Additional CSS styles specific to this template */
+        .card-img-top {
+            background-color: #E5E4E2;
+        }
+
+                /* Create three unequal columns that floats next to each other */
+        .column {
+        float: left;
+        }
+
+        /* Left and right column */
+        .column.side {
+        opacity: 73%;
+        background-color: black;
+        width: 10%;
+        }
+
+        /* Middle column */
+        .column.middle {
+        width: 80%;
+        margin-top: -10px;
+        display: flex;
+        flex-wrap: wrap;
+        }
+
+        /* Clear floats after the columns */
+        .row::after {
+        content: "";
+        display: table;
+        clear: both;
+        }
+
+        .grid-container {
+            display: grid;
+            column-gap: 50px;
+            grid-template-columns: auto auto auto;
+            padding: 30px;
+        }
+
+        .grid-item {
+            margin-top: -40px;
+            background-color: #F2F2F2;
+            margin-left: -30px;
+            width: 470px;
+            padding: 10px;
+            font-size: 30px;
+            text-align: center;
+        }
+
+        .button {
+            margin-left: 190px;
+            margin-top: 70px;
+            display: inline-block;
+            padding: 8px 16px;
+            font-size: 24px;
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .butn {
+            display: inline-block;
+            padding: 9px 18px;
+            font-size: 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Dropdown styling */
+    .dropdown select {
+        background-color: #313131; /* Set dropdown background color */
+        color: white; /* Set dropdown text color */
+        padding: 5px; /* Adjust padding as needed */
+        border: none; /* Remove default dropdown border */
+        border-radius: 5px; /* Add some border radius for aesthetics */
+        height: 40px;
+        font-size: 20px;
+        padding-left: 20px;
+        margin-left: 10px;
+    }
+
+    /* Change text color on hover */
+    .dropdown select:hover {
+        background-color: #313131; /* Change text color on hover */
+    }
+
+
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="column side"></div>
+
+        <div class="column midde">
+            <div class="card-body" style="width: 1000px; height: 800px; background-color: white; margin-left: 170px; margin-right: 200px;">
+                
+                <div class="card-body" style="width: 960px; background-color: white;">
+                    <h2 style="margin-top: 20px; margin-left: -20px; font-weight: normal; color: #919191;">Welcome to the Pokémon Trainer Club!</h2>
+                </div>
+                <div class="card-body" style="width: 960px; margin-top: 30px; background-color: white;">
+                    <h3 style="font-weight: normal; color: #919191;">Add Pokémon<span style="margin-left: 330px; font-weight: normal;">Become the Pokémon Trainer!</span></h3>
+                </div>
+                <div class="grid-container">
+                    <div class="grid-item">
+                    <form action="{% url 'create' %}" method="POST">
+                            {% csrf_token %}
+                            <div class="form-group" style="display: flex; margin-top: 20px;">
+                                <label for="title" style="display: inline-block; margin-left: 20px; margin-right: 40px; margin-top: 10px; font-size: 20px;">Title</label>
+                                <input type="text" name="title" class="form-control" id="title" placeholder="Enter Title" style="background-color: #313131; width: 280px; margin-left: 70px; height: 50px; color: white;">
+                            </div>
+                            <div class="form-group" style="display: flex; margin-top: 20px;">
+                                <label for="description" style="display: inline-block; margin-left: 20px; margin-right: 40px; margin-top: 10px; font-size: 20px;">Description</label>
+                                <input type="text" name="description" class="form-control" id="title" placeholder="Enter Description" style="background-color: #313131; width: 280px; margin-left: 7px; height: 50px; color: white;">
+                            </div>
+                            <div class="form-group" style="display: flex; margin-top: 20px;">
+                                <label for="url" style="display: inline-block; margin-left: 20px; margin-right: 40px; margin-top: 10px; font-size: 20px;">Url</label>
+                                <input type="text" name="url" class="form-control" id="url" placeholder="Enter Url" style="background-color: #313131; width: 280px; margin-left: 83px; height: 50px; color: white;">
+                            </div>
+                            <div class="form-group" style="display: flex; margin-top: 20px;">
+                                <label for="price" style="display: inline-block; margin-left: 20px; margin-right: 40px; margin-top: 10px; font-size: 20px;">Number</label>
+                                <input type="number" min="0" name="price" class="form-control" id="price" placeholder="Enter No" style="background-color: #313131; width: 280px; margin-left: 37px; height: 50px; color: white;">
+                            </div>
+                            <div class="dropdown">
+                                <label for="category" style="margin-left: -120px; margin-top: 20px; font-size: 20px;">Choose a Category:</label>
+                                <select name="category" id="category">
+                                    {% for cat in categories %}
+                                        <option value="{{ cat }}">{{ cat }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <input type="submit" class="butn" style="margin-left: 250px; margin-top: 50px;" value="Add Pokémon">
+                        </form>
+                    </div>
+                    <div class="grid-item" style="margin-left: -30px; height: 400px;">
+                        <p style="font-size: 18px; text-align: justify;">Add More Pokémons in the Trainer Club account today! and play Pokémon Trading Card Game Live, and more.</p>
+                        <div class="card-body" style="margin-left: -10px; width: 470px; height: 330px; background-color: black; padding: 0; border-radius: 5px; overflow: hidden;">
+                            <img src="https://www.pokemon.com/static-assets/content-assets/cms2/img/video-games/video-games/pokemon_lets_go_pikachu_lets_go_eevee/lets-go-pikachu-eevee-visit-the-site.jpg" style="width: 100%; height: 100%;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="column side"></div>
+    </div>
+
+{% endblock %}

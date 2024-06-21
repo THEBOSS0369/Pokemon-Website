@@ -1,0 +1,18 @@
+/* styles.css */
+.watchlist-form {
+    background-color: #f0f0f0;
+    padding: 20px;
+}
+
+.add-button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+@font-face {
+    font-family: 'Flexo Regular';
+    src: url('fonts/Flexo-Regular.ttf') format('truetype');
+}

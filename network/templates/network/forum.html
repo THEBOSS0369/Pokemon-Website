@@ -1,0 +1,410 @@
+{% extends "network/layout.html" %}
+
+{% load static %}
+
+{% block extra_css %}
+    <style>
+        body {
+            position: relative; /* Ensure the body is relatively positioned */
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url(https://assets.pokemon.com/static2/_ui/img/gus/promo-bg.png);
+            background-size: 600px; /* Adjust as needed */
+            background-position: center;
+            filter: brightness(1.13); /* Adjust the brightness value as needed */
+            z-index: -1; /* Ensure the pseudo-element is behind other content */
+        }
+        
+.image-slider {
+        margin-top: -550px;
+        margin-left: 200px;
+        width: 500px;
+        height: 500px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .image-slider img {
+        width: 500px; /* Adjust the size as needed */
+        height: auto;
+        position: absolute;
+        transition: transform 0.5s ease;
+    }
+
+    .selected {
+        transform: translateX(50%);
+        z-index: 1;
+    }
+
+    .left-image {
+        transform: translateX(-150%);
+        z-index: 0;
+    }
+
+    .right-image {
+        transform: translateX(150%);
+        z-index: 0;
+    }
+
+    .controls {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .prev, .next {
+        cursor: pointer;
+        padding: 10px;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        border: none;
+        outline: none;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .prev {
+        left: 0;
+    }
+
+    .next {
+        right: 0;
+    }
+
+        /* Additional CSS styles specific to this template */
+        .card-img-top {
+            background-color: #E5E4E2;
+        }
+
+                /* Create three unequal columns that floats next to each other */
+        .column {
+        float: left;
+        }
+
+        /* Left and right column */
+        .column.side {
+        opacity: 73%;
+        background-color: black;
+        width: 10%;
+        height: 1000px;
+        }
+
+        /* Middle column */
+        .column.middle {
+        width: 80%;
+        height: 1000px;
+        margin-top: -10px;
+        display: flex;
+        flex-wrap: wrap;
+        }
+        /* Clear floats after the columns */
+        .row::after {
+        content: "";
+        display: table;
+        clear: both;
+        }
+
+        .grid-container {
+            display: grid;
+            column-gap: 50px;
+            grid-template-columns: auto auto auto;
+            padding: 30px;
+        }
+
+        .grid-item {
+            margin-top: -40px;
+            background-color: #F2F2F2;
+            margin-left: -30px;
+            width: 470px;
+            padding: 10px;
+            font-size: 30px;
+            text-align: center;
+        }
+
+        .button {
+            margin-left: 190px;
+            margin-top: 70px;
+            display: inline-block;
+            padding: 8px 16px;
+            font-size: 24px;
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .butn {
+            display: inline-block;
+            padding: 9px 18px;
+            font-size: 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .butnedit {
+            display: inline-block;
+            padding: 6px 14px;
+            font-size: 20px;
+            background-color: #ff0000;;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+
+        /* Style for the scroll-to-top button */
+    #scrollToTopBtn {
+        display: none; /* Initially hidden */
+        position: fixed;
+        bottom: 40px;
+        right: 40px;
+        z-index: 99;
+        font-size: 14px; /* Adjust font size */
+        border: none;
+        outline: none;
+        background-color: #333;
+        color: white;
+        cursor: pointer;
+        padding: 12px; /* Adjust padding */
+        border-radius: 50%; /* Make it circular */
+        width: 40px; /* Adjust width */
+        height: 40px; /* Adjust height */
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease;
+    }
+
+    #scrollToTopBtn:hover {
+        background-color: #111;
+    }
+
+    /* Icon inside the button */
+    #scrollToTopBtn i {
+        vertical-align: middle;
+    }
+
+     body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 100%;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .comment {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid rgb(203, 198, 208);
+            border-radius: 5px;
+        }
+        .comment form {
+            display: flex;
+            margin-top: 10px;
+        }
+        .comment form input[type="text"], .comment form input[type="submit"] {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .comment form input[type="text"] {
+            flex: 1;
+            margin-right: 30px;
+        }
+
+        #header {
+        text-align: center; /* Align content to the center */
+    }
+
+    #header h1 {
+        display: block; /* Display the h1 as an inline block */
+        margin-right: 10px; /* Add some space between the h1 and images */
+    }
+
+    #header img {
+        display: inline-block; /* Display images as inline blocks */
+        width: 130px; /* Adjust the width of the images */
+        height: auto; /* Maintain aspect ratio */
+    }
+        
+    #header .images-container {
+        display: flex; /* Use flexbox */
+        justify-content: center; /* Center items horizontally */
+    }
+
+    </style>
+{% endblock %}
+
+{% block body %}
+
+    <div class="row">
+
+        <div class="column side"></div>
+
+        <div class="column midde">
+            <div class="card-body" style="width: 1000px; height: 1000px; background-color: white; margin-left: 170px; margin-right: 200px;">
+                <div class="card-body" style="margin-left: -20px; margin-top: -20px; background-color: white; width: 1000px; height: 300px;">
+                    <img style="width: 100%; height: 100%; padding: 0;" src="https://us.v-cdn.net/6034460/uploads/2SGYEQW3Z1LV/banner-home-1920x415-en.png">
+                </div>
+            <div class="card-body" style="width: 1000px; height: 300px; margin-left: -20px; background-color: #fdd23e;">
+                <div class="header">
+                    <h1 style="font-weight: bolder; color: #3e3b3a; text-align: center;">Pokémon Forums</h1>
+                    <div class="images-container">
+                        <img style="margin-left: 250px;" src="https://scarletviolet.pokemon.com/_images/global/subscribe/sprigatito.webp" alt="Image 1">
+                        <img src="https://scarletviolet.pokemon.com/_images/global/subscribe/fuecoco.webp" alt="Image 2">
+                        <img src="https://scarletviolet.pokemon.com/_images/global/subscribe/quaxly.webp" alt="Image 3">
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="comment">
+                    <h1 style="font-weight: bold; text-align: center;">Start your Conversation Here!!!</h1>
+                    <form id="commentForm">
+                        <input type="text" id="nameInput" style="background-color: #313131; width: 20px; margin-left: 7px; height: 50px; color: white;" placeholder="Your Name">
+                        <input type="text" id="commentInput" style="background-color: #313131; width: 280px; margin-left: 7px; height: 50px; color: white;" placeholder="Write your comment here...">
+                        <input class="butn" style="width: 80px; font-weight: normal;" type="submit" value="Post">
+                    </form>
+                </div>
+                <div id="comments">
+                    <!-- Comments will be added here -->
+                </div>
+            </div>
+            </div>
+
+        </div>
+
+        <div class="column side"></div>
+        <button onclick="scrollToTop()" id="scrollToTopBtn" title="Go to top"><i class="fa fa-arrow-up"></i></button>
+    </div>
+
+    <script>
+   let currentSlide = 1; // Index of the initially selected image
+    const slides = document.querySelectorAll('.image-slider img');
+    const totalSlides = slides.length;
+
+    function showSlide(index) {
+        if (index < 0) {
+            currentSlide = totalSlides - 1;
+        } else if (index >= totalSlides) {
+            currentSlide = 0;
+        }
+        slides.forEach((slide, i) => {
+            const offset = i - currentSlide;
+            slide.style.transform = `translateX(${offset * 100}%)`; // Adjust the percentage based on the image width
+        });
+    }
+
+    function nextSlide() {
+        currentSlide++;
+        showSlide(currentSlide);
+    }
+
+    function prevSlide() {
+        currentSlide--;
+        showSlide(currentSlide);
+    }
+
+    showSlide(currentSlide); 
+
+    // Get the button
+    var scrollToTopBtn = document.getElementById("scrollToTopBtn");
+
+    // When the user scrolls down 20px from the top of the document, show the button
+    window.onscroll = function() {scrollFunction()};
+
+    function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            scrollToTopBtn.style.display = "block";
+        } else {
+            scrollToTopBtn.style.display = "none";
+        }
+    }
+
+    // Smooth scroll to top function
+    function scrollToTop() {
+        var currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
+        if (currentScroll > 0) {
+            window.requestAnimationFrame(scrollToTop);
+            window.scrollTo(0, currentScroll - (currentScroll / 10));
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+            // Array to store comments
+            let comments = [];
+
+            // Function to display comments
+            function displayComments() {
+                const commentsContainer = document.getElementById('comments');
+                commentsContainer.innerHTML = '';
+                comments.forEach(function(comment, index) {
+                    const commentDiv = document.createElement('div');
+                    commentDiv.className = 'comment';
+                    commentDiv.innerHTML = `
+                        <p style="border = 2px solid black;"><strong>${comment.name}</strong> - ${comment.date} ${comment.time}<br>${comment.text}</p>
+                        <button class="butnedit" onclick="editComment(${index})">Edit</button>
+                    `;
+                    commentsContainer.appendChild(commentDiv);
+                });
+            }
+
+            // Function to add a new comment
+            document.getElementById('commentForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                const nameInput = document.getElementById('nameInput');
+                const commentInput = document.getElementById('commentInput');
+                const newName = nameInput.value.trim();
+                const newComment = commentInput.value.trim();
+                if (newName !== '' && newComment !== '') {
+                    const currentDate = new Date();
+                    const dateString = currentDate.toLocaleDateString();
+                    const timeString = currentDate.toLocaleTimeString();
+                    const newEntry = {
+                        name: newName,
+                        text: newComment,
+                        date: dateString,
+                        time: timeString
+                    };
+                    comments.push(newEntry);
+                    displayComments();
+                    nameInput.value = '';
+                    commentInput.value = '';
+                }
+            });
+
+            // Function to edit a comment
+            window.editComment = function(index) {
+                const updatedComment = prompt('Edit your comment:', comments[index].text);
+                if (updatedComment !== null) {
+                    comments[index].text = updatedComment.trim();
+                    displayComments();
+                }
+            };
+        });
+
+</script>
+{% endblock %}
