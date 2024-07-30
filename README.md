@@ -1,5 +1,11 @@
 # THE POKÉMON WEBSITE 
+
+![Front Page 1](https://github.com/user-attachments/assets/ab39f2e6-3c9a-4d31-8c85-6db3f71ee2bd)
+![Pokedex 1](https://github.com/user-attachments/assets/fb135720-48c8-4e90-b353-1184b44334fa)
+![Login Page](https://github.com/user-attachments/assets/6b4bd4c0-c549-4642-8dd1-8126f5d77005)
+
 #### Description:
+
 
 This is The Pokémon Website. So i started this project started as an idea from Week 0 when i learned to work with Scratch. I am a huge Pokemon fan, and the series is ended so i thought to give a tribute and also i wanted to understand how the Pokemon Website works behind the screen, so i created a One!. Okay so first comes first our
 
